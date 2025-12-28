@@ -8,6 +8,19 @@
 
 void	error_exit(void);
 
+typedef struct s_parsed
+{
+	int     in_fd;
+	int     out_fd;
+	char    *cmd1_path;
+	char    **cmd1_argv;
+	char    *cmd2_path;
+	char    **cmd2_argv;
+}   t_parsed;
+
+/* parser */
+t_parsed  *parse_she_line(int argc, char **argv);
+
 /* topology */
 void	child1_producer_run(int in_fd, int pipefd[2]);
 void	child2_consumer_run(int out_fd, int pipefd[2]);

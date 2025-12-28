@@ -1,8 +1,6 @@
 # include "pipex.h"
 
-
-
-static void	child1_producer_run(int in_fd, int pipefd[2])
+void	child1_producer_run(int in_fd, int pipefd[2])
 {
 	if (dup2(in_fd, STDIN_FILENO) == -1)
 		error_exit();
@@ -15,7 +13,7 @@ static void	child1_producer_run(int in_fd, int pipefd[2])
 
 }
 
-static void	child2_consumer_run(int out_fd, int pipefd[2])
+void	child2_consumer_run(int out_fd, int pipefd[2])
 {
 	if (dup2(pipefd[0], STDIN_FILENO) == -1)
 		error_exit();
@@ -28,7 +26,7 @@ static void	child2_consumer_run(int out_fd, int pipefd[2])
 
 }
 
-static void	parent_seal(int in_fd, int out_fd, int pipefd[2])
+void	parent_seal(int in_fd, int out_fd, int pipefd[2])
 {
 	close(in_fd);
 	close(out_fd);
