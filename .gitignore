@@ -3,3 +3,12 @@
 .venv
 infile
 outfile
+
+# build artifacts
+*.o
+*.a
+pipex
+
+# libft build
+libft/*.o
+libft/*.a
