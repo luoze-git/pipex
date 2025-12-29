@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 22:23:43 by luozguo           #+#    #+#             */
-/*   Updated: 2025/08/18 14:21:56 by luozguo          ###   ########.fr       */
+/*   Updated: 2025/12/29 16:34:47 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static size_t	ft_wordcount(char const *s, char c)
 }
 
 /*free the allocated memory when things go wrong*/
-static char	**ft_free_split(char **ptr, size_t n)
+static char	**error_free_split(char **ptr, size_t n)
 {
 	size_t	offset;
 
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 		len = ft_wordlen(s, c, &k);
 		ptr[i] = ft_substr(s, k, len);
 		if (!ptr[i])
-			return (ft_free_split(ptr, i));
+			return (error_free_split(ptr, i));
 		k = len + k;
 		i++;
 	}

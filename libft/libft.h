@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 22:25:28 by luozguo           #+#    #+#             */
-/*   Updated: 2025/08/18 15:21:54 by luozguo          ###   ########.fr       */
+/*   Updated: 2025/12/29 16:37:06 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 
 char				**ft_split(char const *s, char c);
+
+void				ft_free_split(char **split);
 
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
