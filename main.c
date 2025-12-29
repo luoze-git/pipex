@@ -1,16 +1,16 @@
-# include "pipex.h"
+#include "pipex.h"
 
 int main(int argc, char **argv, char **envp)
 {
-    t_parsed* argv_parsed;
+    t_parsed *argv_parsed;
     pid_t p1;
     pid_t p2;
     int pipefd[2];
     int status1;
     int status2;
-    
-    argv_parsed = parse_she_line(argc, argv);
-    if( pipe(pipefd) == -1)
+
+    argv_parsed = parse_she_line(argc, argv, envp);
+    if (pipe(pipefd) == -1)
         error_exit();
     p1 = fork();
     if (p1 == -1)
@@ -35,13 +35,13 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            parent_seal(argv_parsed->in_fd,argv_parsed->out_fd ,pipefd);
+            parent_seal(argv_parsed->in_fd, argv_parsed->out_fd, pipefd);
         }
     }
 
     // here is only reached by parent
-    waitpid(p1,&status1,0 );
-    waitpid(p2,&status2,0 );
+    waitpid(p1, &status1, 0);
+    waitpid(p2, &status2, 0);
 
     if (WIFEXITED(status2))
         return (WEXITSTATUS(status2));
