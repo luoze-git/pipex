@@ -16,6 +16,7 @@ SRCS		= main.c \
 			  pipline.c \
 			  psupervise.c \
 			  error.c \
+ 		      cleanup.c \
 			  utils.c
 
 OBJS		= $(SRCS:.c=.o)

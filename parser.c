@@ -23,9 +23,10 @@ void	fetch_cmd_path(char *cmd_name, char **envp, char **path)
 	char	**dirs;
 	char	*path_candidate;
 
+	*path = NULL;
 	idx = find_path_idx_envp(envp);
 	if (idx == -1)
-		fatal_parent_prefork("no PATH in envp");
+		return ;
 	dirs = ft_split(envp[idx] + 5, ':');
 	if (!dirs)
 		fatal_parent_prefork("split dirs");
@@ -48,7 +49,7 @@ void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 {
 	cmd->argv = ft_split(cmd_str, ' ');
 	if (!cmd->argv)
-		fatal_parent_prefork("parse cmd argv");
+		fatal_parent_prefork("split cmd argv");
 	if (ft_strchr(cmd->argv[0], '/'))
 	{
 		cmd->path = ft_strdup(cmd->argv[0]);
@@ -64,6 +65,8 @@ t_parsed	*parse_input(int argc, char **argv, char **envp)
 	t_parsed	*parsed;
 	int			cmd_i;
 
+	if (argc < 5)
+		fatal_parent_prefork("not enough arguments");
 	parsed = malloc(sizeof(t_parsed));
 	if (!parsed)
 		fatal_parent_prefork("malloc parsed");

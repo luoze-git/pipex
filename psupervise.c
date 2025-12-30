@@ -5,22 +5,22 @@ void	close_all_fd(t_parent *parent)
 	int	i;
 
     if (!parent || !parent->parsed)
-        return;
+		return;
     if (parent->parsed->in_fd >= 0)
-        close(parent->parsed->in_fd);
+		close(parent->parsed->in_fd);
     if (parent->parsed->out_fd >= 0)
-        close(parent->parsed->out_fd);
+		close(parent->parsed->out_fd);
 	i = 0;
     if (!parent->pipes)
-        return;
+ 		return;
 	while (i < parent->parsed->cmd_count - 1)
 	{
         if (parent->pipes[i])
         {
         if (parent->pipes[i][0] >= 0)
-            close(parent->pipes[i][0]);
+			close(parent->pipes[i][0]);
         if (parent->pipes[i][1] >= 0)
-            close(parent->pipes[i][1]);
+			close(parent->pipes[i][1]);
         }
         i++;
 	}
