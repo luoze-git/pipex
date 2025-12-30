@@ -1,7 +1,7 @@
-# include "pipex.h"
+#include "pipex.h"
 
-void	error_exit(void)
+void fatal_child(char* msg)
 {
-	perror("pipex");
-	exit(1);
+    perror(msg);
+    exit(1);
 }
