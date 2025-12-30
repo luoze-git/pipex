@@ -19,11 +19,6 @@ void fetch_cmd_path(char *cmd_name, char **envp, char **path)
 {
     // This function should resolve the command path using the PATH env variable
     int idx = find_path_idx_envp(envp);
-    if (idx == -1)
-{
-    *path = NULL;
-    return;
-}
 
     char **dirs = ft_split(envp[idx] + 5, ':');
     char *path_candidate;
@@ -39,14 +34,12 @@ void fetch_cmd_path(char *cmd_name, char **envp, char **path)
         free(path_candidate);
         idx++;
     }
-    free(dirs);
+    ft_free_split(dirs);
 }
 
 void parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 {
-    cmd = malloc(sizeof(t_cmd));
     cmd->argv = ft_split(cmd_str, ' ');
-    // For simplicity, assume the path is just the command name
     if (ft_strchr(cmd->argv[0], '/'))
         cmd->path = ft_strdup(cmd->argv[0]);
     else

@@ -1,15 +1,15 @@
 
 # include "pipex.h"
 
-// pipes number is known from parsed->cmd_count
-int **setup_pipes(t_parsed *parsed)
+
+int **setup_pipes(int cmd_count)
 {
     int **pipes;
     int i;
 
-    pipes = malloc(sizeof(int *) * (parsed->cmd_count - 1));
+    pipes = malloc(sizeof(int *) * (cmd_count - 1));
     i = 0;
-    while (i < parsed->cmd_count - 1)
+    while (i < cmd_count - 1)
     {
         pipes[i] = malloc(sizeof(int) * 2);
         if (pipe(pipes[i]) == -1)

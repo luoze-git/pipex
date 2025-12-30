@@ -1,7 +1,4 @@
 # include "pipex.h"
-
-
-
 // generic helpers like ft_strjoin_3_safe
 // & should be small
 
@@ -12,13 +9,13 @@ char * ft_strjoin_3_safe(char *a , char * b, char*c)
     tmp1 = ft_strjoin(a , b);
     if (!tmp1)
     {
-        error_exit();
+        exit(1);
     }
     tmp2 = ft_strjoin((const char *)tmp1 , c);
     free(tmp1);
     if (!tmp2)
     {
-        error_exit();
+        exit(1);
     }
     return (tmp2);
 }
