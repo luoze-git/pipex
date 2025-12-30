@@ -28,9 +28,6 @@ void connect_stdout(t_parent *parent, int cmd_idx)
     }
 }
 
-
-
-
 void child_exec_command(t_parent *parent, char **envp, int cmd_idx)
 {
     t_cmd cmd;
@@ -45,36 +42,30 @@ void child_exec_command(t_parent *parent, char **envp, int cmd_idx)
     fatal_child("execve");
 }
 
-
-pid_t launch_command(t_parent *parent, int cmd_idx, char **envp )
+pid_t launch_command(t_parent *parent, int cmd_idx, char **envp)
 {
-	pid_t pid_cur;
-	pid_cur = fork();
-	if (pid_cur < 0)
-		perror("fork");
-	if (pid_cur == 0)
-		child_exec_command(
-			parent,
-			envp,
-			cmd_idx
-		);
-	return (pid_cur);
+    pid_t pid_cur;
+    pid_cur = fork();
+    if (pid_cur < 0)
+        ;
+    if (pid_cur == 0)
+        child_exec_command(parent, envp, cmd_idx);
+    return (pid_cur);
 }
-
 
 void launch_pipeline(t_parent *parent, char **envp)
 {
     int i;
 
+    parent->spawned = 0;
     parent->pids = malloc(sizeof(pid_t) * parent->parsed->cmd_count);
     if (!parent->pids)
-        exit(1);
+        fatal_parent_prefork("malloc pids");
     i = 0;
     while (i < parent->parsed->cmd_count)
     {
         parent->pids[i] = launch_command(parent, i, envp);
+        parent->spawned ++;
         i++;
     }
 }
-
-

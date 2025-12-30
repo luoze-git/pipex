@@ -34,10 +34,10 @@ int parent_wait_and_collect(t_parent *parent)
 
     i = 0;
     last_exit_code = 1;
-    while (i < parent->parsed->cmd_count)
+    while (i < parent->spawned)
     {
         waitpid(parent->pids[i], &status, 0);
-        if (i == parent->parsed->cmd_count - 1)
+        if (i == parent->spawned - 1)
             last_exit_code = wait_status_to_exit_code(status);
         i++;
     }

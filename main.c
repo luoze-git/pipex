@@ -15,5 +15,6 @@ int main(int argc, char **argv, char **envp)
 
     close_all_fd(&parent);
     exit_code = parent_wait_and_collect(&parent);
+    cleanup_parent(&parent);
     return (exit_code);
 }

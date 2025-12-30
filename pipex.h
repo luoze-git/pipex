@@ -29,6 +29,7 @@ typedef struct s_parent
     t_parsed *parsed;
     int **pipes;
     pid_t *pids;
+    int spawned;
 } t_parent;
 
 /* parser */
