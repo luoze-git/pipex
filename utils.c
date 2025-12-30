@@ -10,14 +10,10 @@ char	*ft_strjoin_3_safe(char *a, char *b, char *c)
 
 	tmp1 = ft_strjoin(a, b);
 	if (!tmp1)
-	{
-		exit(1);
-	}
+		fatal_parent_prefork("strjoin_3_safe");
 	tmp2 = ft_strjoin((const char *)tmp1, c);
 	free(tmp1);
 	if (!tmp2)
-	{
-		exit(1);
-	}
+		fatal_parent_prefork("strjoin_3_safe");
 	return (tmp2);
 }
