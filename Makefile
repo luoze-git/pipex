@@ -2,7 +2,6 @@ NAME		= pipex
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
-
 INCDIR		= .
 INCFLAGS	= -I$(INCDIR)
 
