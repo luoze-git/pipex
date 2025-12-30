@@ -17,5 +17,3 @@ int main(int argc, char **argv, char **envp)
     exit_code = parent_wait_and_collect(&parent);
     return (exit_code);
 }
-
-// spawn_all_children
