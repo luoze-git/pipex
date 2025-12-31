@@ -11,7 +11,9 @@ LIBFT_INC	= -I$(LIBFT_DIR)
 LIBFT_LINK	= -L$(LIBFT_DIR) -lft
 
 SRCS		= main.c \
-			  parser.c \
+			  parser_1_classifier.c \
+			  parser_2_cmds.c \
+			  parser_3_open.c \
 			  pipes.c \
 			  pipline.c \
 			  psupervise.c \

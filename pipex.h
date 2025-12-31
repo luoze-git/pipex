@@ -21,6 +21,7 @@ typedef struct s_parsed
 	int			in_fd;
 	int			out_fd;
 	int			cmd_count;
+	int			cmd_start_idx;
 	t_cmd		*cmds;
 	int			here_doc;
 	char*       limiter;
@@ -39,6 +40,12 @@ int				find_path_idx_envp(char **envp);
 void			fetch_cmd_path(char *cmd_name, char **envp, char **path);
 void			parse_cmd(char *cmd_str, t_cmd *cmd, char **envp);
 t_parsed		*parse_input(int argc, char **argv, char **envp);
+void			get_input_pattern(t_parsed *p, int argc, char **argv);
+void			init_parsed(t_parsed *p);
+void			parse_multi_cmds(t_parsed *p, char **argv, char **envp);
+void			open_input(t_parsed *p, char **argv);
+void			open_output(t_parsed *p, int argc, char **argv);
+int			here_doc_pipe(char *limiter);
 
 /* pipes */
 int				**setup_pipes(int cmd_count);
