@@ -22,6 +22,8 @@ typedef struct s_parsed
 	int			out_fd;
 	int			cmd_count;
 	t_cmd		*cmds;
+	int			here_doc;
+	char*       limiter;
 }				t_parsed;
 
 typedef struct s_parent

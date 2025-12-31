@@ -3,9 +3,9 @@
 // name file1 cmd1 cmd2 file2
 // 0     1     2    3    4
 
-int	find_path_idx_envp(char **envp)
+int find_path_idx_envp(char **envp)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (envp[i])
@@ -17,16 +17,16 @@ int	find_path_idx_envp(char **envp)
 	return (-1);
 }
 
-void	fetch_cmd_path(char *cmd_name, char **envp, char **path)
+void fetch_cmd_path(char *cmd_name, char **envp, char **path)
 {
-	int		idx;
-	char	**dirs;
-	char	*path_candidate;
+	int idx;
+	char **dirs;
+	char *path_candidate;
 
 	*path = NULL;
 	idx = find_path_idx_envp(envp);
 	if (idx == -1)
-		return ;
+		return;
 	dirs = ft_split(envp[idx] + 5, ':');
 	if (!dirs)
 		fatal_parent_prefork("split dirs");
@@ -45,7 +45,7 @@ void	fetch_cmd_path(char *cmd_name, char **envp, char **path)
 	ft_free_split(dirs);
 }
 
-void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
+void parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 {
 	cmd->argv = ft_split(cmd_str, ' ');
 	if (!cmd->argv)
@@ -60,10 +60,23 @@ void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 		fetch_cmd_path(cmd->argv[0], envp, &(cmd->path));
 }
 
-t_parsed	*parse_input(int argc, char **argv, char **envp)
+int get_cmd_pattern(t_parsed *p, int argc, char **argv)
 {
-	t_parsed	*parsed;
-	int			cmd_i;
+	if (argc >= 6 && ft_strncmp(argv[1], "here_doc", 9) == 0)
+	{
+		p->here_doc = 1;
+		p->limiter = argv[2];
+		return (3);
+	}
+	p->here_doc = 0;
+	p->limiter = NULL;
+	return (2);
+}
+
+t_parsed *parse_input(int argc, char **argv, char **envp)
+{
+	t_parsed *parsed;
+	int cmd_i;
 
 	if (argc < 5)
 		fatal_parent_prefork("not enough arguments");
