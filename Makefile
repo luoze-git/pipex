@@ -16,9 +16,10 @@ SRCS		= main.c \
 			  parser_3_open.c \
 			  pipes.c \
 			  pipline.c \
-			  psupervise.c \
+			  pwait.c \
 			  error.c \
- 		      cleanup.c \
+			  close.c \
+			  cleanup.c \
 			  utils.c
 
 OBJS		= $(SRCS:.c=.o)
