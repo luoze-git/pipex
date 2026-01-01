@@ -53,3 +53,18 @@ void	cleanup_parent(t_parent *parent)
 	if (parent->pids)
 		free(parent->pids);
 }
+
+void	cleanup_child(t_parent *parent)
+{
+	int	pipe_count;
+
+	if (!parent)
+		return ;
+	pipe_count = 0;
+	if (parent->parsed)
+		pipe_count = parent->parsed->cmd_count - 1;
+	cleanup_cmds(parent->parsed);
+	cleanup_pipes(parent->pipes, pipe_count);
+	if (parent->pids)
+		free(parent->pids);
+}

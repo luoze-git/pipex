@@ -10,7 +10,7 @@
 
 ./pipex here_doc LIMITER cmd cmd1 file
 
-0			 1        2    3    4 	5
+0				1        2    3    4 	5
 
 cmd << LIMITER | cmd1 >> file
 */

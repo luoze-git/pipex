@@ -57,11 +57,11 @@ pid_t			launch_command(t_parent *parent, int cmd_idx, char **envp);
 void			launch_pipeline(t_parent *parent, char **envp);
 
 /* process supervision */
-void			close_all_fd(t_parent *parent);
+void			close_all_fd_safe(t_parent *parent);
 int				parent_wait_and_collect(t_parent *parent);
 
 /* error */
-void			fatal_child(char *msg);
+void			fatal_child(t_parent *parent, char *msg, int exit_code);
 void			fatal_parent_prefork(const char *msg_where);
 void			fatal_parent_postfork(t_parent *parent, const char *msg_where);
 

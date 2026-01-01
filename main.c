@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	parent.pipes = setup_pipes(parsed->cmd_count);
 	parent.pids = NULL;
 	launch_pipeline(&parent, envp);
-	close_all_fd(&parent);
+	close_all_fd_safe(&parent);
 	exit_code = parent_wait_and_collect(&parent);
 	cleanup_parent(&parent);
 	return (exit_code);
