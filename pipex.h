@@ -49,6 +49,7 @@ int			here_doc_pipe(char *limiter);
 
 /* pipes */
 int				**setup_pipes(int cmd_count);
+int	here_doc_pipe(char *limiter);
 
 /* pipeline */
 void			connect_stdin(t_parent *parent, int cmd_idx);

@@ -1,5 +1,33 @@
 #include "pipex.h"
 
+int	here_doc_pipe(char *limiter)
+{
+	int		fd[2];
+	char	*line;
+	size_t	lim_len;
+
+	if (pipe(fd) < 0)
+		fatal_parent_prefork("pipe");
+	lim_len = ft_strlen(limiter);
+	while (1)
+	{
+		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			break;
+		if (ft_strncmp(line, limiter, lim_len) == 0
+			&& line[lim_len] == '\n')
+		{
+			free(line);
+			break;
+		}
+		write(fd[1], line, ft_strlen(line));
+		free(line);
+	}
+	close(fd[1]);
+	return (fd[0]);
+}
+
+
 void open_input(t_parsed *p, char **argv)
 {
 	if (p->here_doc)

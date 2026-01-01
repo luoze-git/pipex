@@ -2,7 +2,12 @@
 .vs_code
 .venv
 infile
+file
 outfile
+out.txt
+error.txt
+a.out
+*.exe
 
 # build artifacts
 *.o
