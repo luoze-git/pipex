@@ -69,6 +69,7 @@ void			fatal_parent_postfork(t_parent *parent, const char *msg_where);
 void			cleanup_cmds(t_parsed *parsed);
 void			cleanup_pipes(int **pipes, int pipe_count);
 void			cleanup_parent(t_parent *parent);
+void			cleanup_child(t_parent *parent);
 
 /* utils */
 char			*ft_strjoin_3_safe(char *a, char *b, char *c);

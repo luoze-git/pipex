@@ -18,7 +18,7 @@ static void	close_pipe_pair(int *pipefd)
 }
 
 /// @brief close all fds from t_parent struct and set them to
-	-1. Check before closing to avoid closing invalid fds.
+///	-1. Check before closing to avoid closing invalid fds.
 /// @param parent
 void	close_all_fd_safe(t_parent *parent)
 {
