@@ -52,6 +52,7 @@ void	cleanup_parent(t_parent *parent)
 	if (parent->parsed)
 		pipe_count = parent->parsed->cmd_count - 1;
 	cleanup_cmds_then_tparsed(parent->parsed);
+	parent->parsed = NULL;
 	cleanup_pipes(parent->pipes, pipe_count);
 	if (parent->pids)
 		free(parent->pids);

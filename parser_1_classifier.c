@@ -48,7 +48,7 @@ static void	init_parsed(t_parsed *p)
 	p->limiter = NULL;
 }
 
-t_parsed	*parse_input(int argc, char **argv, char **envp, t_parent *parent)
+void	parse_input(int argc, char **argv, char **envp, t_parent *parent)
 {
 	t_parsed	*p;
 
@@ -56,9 +56,9 @@ t_parsed	*parse_input(int argc, char **argv, char **envp, t_parent *parent)
 	if (!p)
 		fatal_parent_prefork(parent, "malloc parsed");
 	init_parsed(p);
+	parent->parsed = p;
 	get_input_pattern(p, argc, argv, parent);
 	open_input(p, argv, parent);
 	parse_multi_cmds(p, argv, envp, parent);
 	open_output(p, argc, argv, parent);
-	return (p);
 }

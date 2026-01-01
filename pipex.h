@@ -47,7 +47,7 @@ void			fetch_cmd_path(char *cmd_name, char **envp, char **path,
 					t_parent *parent);
 void			parse_cmd(char *cmd_str, t_cmd *cmd, char **envp,
 					t_parent *parent);
-t_parsed		*parse_input(int argc, char **argv, char **envp,
+void			parse_input(int argc, char **argv, char **envp,
 					t_parent *parent);
 void			get_input_pattern(t_parsed *p, int argc, char **argv,
 					t_parent *parent);
@@ -59,7 +59,7 @@ void			open_output(t_parsed *p, int argc, char **argv,
 int				here_doc_pipe(char *limiter, t_parent *parent);
 
 /* pipes */
-int				**setup_pipes(int cmd_count, t_parent *parent);
+void			setup_pipes(int cmd_count, t_parent *parent);
 
 /* pipeline */
 void			connect_stdin(t_parent *parent, int cmd_idx);

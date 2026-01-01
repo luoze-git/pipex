@@ -4,7 +4,7 @@
 /// @brief malloc and pipe()s setup for all required pipes
 /// @param cmd_count
 /// @return
-int	**setup_pipes(int cmd_count, t_parent *parent)
+void	setup_pipes(int cmd_count, t_parent *parent)
 {
 	int	**pipes;
 	int	i;
@@ -12,6 +12,7 @@ int	**setup_pipes(int cmd_count, t_parent *parent)
 	pipes = malloc(sizeof(int *) * (cmd_count - 1));
 	if (!pipes)
 		fatal_parent_prefork(parent, "malloc pipes");
+	parent->pipes = pipes;
 	i = 0;
 	while (i < cmd_count - 1)
 	{
@@ -20,5 +21,4 @@ int	**setup_pipes(int cmd_count, t_parent *parent)
 			fatal_parent_prefork(parent, "pipe");
 		i++;
 	}
-	return (pipes);
 }
