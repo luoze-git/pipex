@@ -1,9 +1,8 @@
 #include "pipex.h"
 
-
-int find_path_idx_envp(char **envp)
+int	find_path_idx_envp(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -15,17 +14,16 @@ int find_path_idx_envp(char **envp)
 	return (-1);
 }
 
-
-void fetch_cmd_path(char *cmd_name, char **envp, char **path)
+void	fetch_cmd_path(char *cmd_name, char **envp, char **path)
 {
-	int idx;
-	char **dirs;
-	char *path_candidate;
+	int		idx;
+	char	**dirs;
+	char	*path_candidate;
 
 	*path = NULL;
 	idx = find_path_idx_envp(envp);
 	if (idx == -1)
-		return;
+		return ;
 	dirs = ft_split(envp[idx] + 5, ':');
 	if (!dirs)
 		fatal_parent_prefork("split dirs");
@@ -36,7 +34,7 @@ void fetch_cmd_path(char *cmd_name, char **envp, char **path)
 		if (access(path_candidate, X_OK) == 0)
 		{
 			*path = path_candidate;
-			break;
+			break ;
 		}
 		free(path_candidate);
 		idx++;
@@ -44,8 +42,7 @@ void fetch_cmd_path(char *cmd_name, char **envp, char **path)
 	ft_free_split(dirs);
 }
 
-
-void parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
+void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 {
 	cmd->argv = ft_split(cmd_str, ' ');
 	if (!cmd->argv)
@@ -60,8 +57,7 @@ void parse_cmd(char *cmd_str, t_cmd *cmd, char **envp)
 		fetch_cmd_path(cmd->argv[0], envp, &(cmd->path));
 }
 
-
-void parse_multi_cmds(t_parsed *p, char **argv, char **envp)
+void	parse_multi_cmds(t_parsed *p, char **argv, char **envp)
 {
 	int i;
 

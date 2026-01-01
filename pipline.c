@@ -36,14 +36,12 @@ void	child_exec_command(t_parent *parent, char **envp, int cmd_idx)
 	connect_stdin(parent, cmd_idx);
 	connect_stdout(parent, cmd_idx);
 	close_all_fd(parent);
-
 	if (cmd.path == NULL)
 	{
 		ft_putstr_fd(cmd.argv[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
-
 	execve(cmd.path, cmd.argv, envp);
 	fatal_child("execve");
 }

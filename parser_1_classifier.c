@@ -10,15 +10,14 @@
 
 ./pipex here_doc LIMITER cmd cmd1 file
 
-0	       1        2    3    4 	5
+0			 1        2    3    4 	5
 
 cmd << LIMITER | cmd1 >> file
 */
 
-
 // allow cmd_path to be NULL if not found. Check for that before execve
 
-void get_input_pattern(t_parsed *p, int argc, char **argv)
+void	get_input_pattern(t_parsed *p, int argc, char **argv)
 {
 	if (argc < 5)
 		fatal_parent_prefork("invalid arguments");
@@ -30,7 +29,7 @@ void get_input_pattern(t_parsed *p, int argc, char **argv)
 		p->limiter = argv[2];
 		p->cmd_start_idx = 3;
 		p->cmd_count = argc - p->cmd_start_idx - 1;
-		return;
+		return ;
 	}
 	p->here_doc = 0;
 	p->limiter = NULL;
@@ -38,7 +37,7 @@ void get_input_pattern(t_parsed *p, int argc, char **argv)
 	p->cmd_count = argc - p->cmd_start_idx - 1;
 }
 
-static void init_parsed(t_parsed *p)
+static void	init_parsed(t_parsed *p)
 {
 	p->in_fd = -1;
 	p->out_fd = -1;
@@ -49,9 +48,9 @@ static void init_parsed(t_parsed *p)
 	p->limiter = NULL;
 }
 
-t_parsed *parse_input(int argc, char **argv, char **envp)
+t_parsed	*parse_input(int argc, char **argv, char **envp)
 {
-	t_parsed *p;
+	t_parsed	*p;
 
 	p = malloc(sizeof(t_parsed));
 	if (!p)

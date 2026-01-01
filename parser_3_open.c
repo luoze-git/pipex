@@ -13,12 +13,11 @@ int	here_doc_pipe(char *limiter)
 	{
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
-			break;
-		if (ft_strncmp(line, limiter, lim_len) == 0
-			&& line[lim_len] == '\n')
+			break ;
+		if (ft_strncmp(line, limiter, lim_len) == 0 && line[lim_len] == '\n')
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(fd[1], line, ft_strlen(line));
 		free(line);
@@ -27,8 +26,7 @@ int	here_doc_pipe(char *limiter)
 	return (fd[0]);
 }
 
-
-void open_input(t_parsed *p, char **argv)
+void	open_input(t_parsed *p, char **argv)
 {
 	if (p->here_doc)
 		p->in_fd = here_doc_pipe(p->limiter);
@@ -38,9 +36,9 @@ void open_input(t_parsed *p, char **argv)
 		fatal_parent_prefork("open input file");
 }
 
-void open_output(t_parsed *p, int argc, char **argv)
+void	open_output(t_parsed *p, int argc, char **argv)
 {
-	int flags;
+	int	flags;
 
 	flags = O_CREAT | O_WRONLY;
 	if (p->here_doc)

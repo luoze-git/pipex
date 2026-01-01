@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-/// @brief free pending_content and line,ie. 
-///deal with malloc and set to NULL to avoid double free
+/// @brief free pending_content and line,ie.
+/// deal with malloc and set to NULL to avoid double free
 /// @param pending_content
 /// @return NULL
 void	*reset_return_null(char **pending_content)
@@ -23,9 +23,9 @@ void	*reset_return_null(char **pending_content)
 	return (NULL);
 }
 
-/// @brief syscalls of read() in a loop. 
-///stop when new line is met or bytes_read is 0. 
-///update the static array before return.
+/// @brief syscalls of read() in a loop.
+/// stop when new line is met or bytes_read is 0.
+/// update the static array before return.
 /// @param pending
 /// @param hd_stat
 /// @param fd

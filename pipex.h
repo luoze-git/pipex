@@ -44,7 +44,7 @@ void			get_input_pattern(t_parsed *p, int argc, char **argv);
 void			parse_multi_cmds(t_parsed *p, char **argv, char **envp);
 void			open_input(t_parsed *p, char **argv);
 void			open_output(t_parsed *p, int argc, char **argv);
-int			here_doc_pipe(char *limiter);
+int				here_doc_pipe(char *limiter);
 
 /* pipes */
 int				**setup_pipes(int cmd_count);

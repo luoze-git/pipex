@@ -1,5 +1,12 @@
 #include "pipex.h"
 
+static void	init_parent(t_parent *parent)
+{
+	parent->parsed = NULL;
+	parent->pipes = NULL;
+	parent->pids = NULL;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_parsed	*parsed;
@@ -17,11 +24,3 @@ int	main(int argc, char **argv, char **envp)
 	cleanup_parent(&parent);
 	return (exit_code);
 }
-
-void	init_parent(t_parent *parent)
-{
-	parent->parsed = NULL;
-	parent->pipes = NULL;
-	parent->pids = NULL;
-}
-

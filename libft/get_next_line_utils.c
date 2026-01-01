@@ -49,7 +49,7 @@ void	ft_init_t_join_vars(t_join_vars *t, char *hd, char *tl, char sep)
 /// @param tl tail
 /// @param sep the char to append at the end of the joint str. if sep is '\0',
 ///	then no char is appended.
-/// @return joined malloc-ed str. NULL if malloc fail or both hd and 
+/// @return joined malloc-ed str. NULL if malloc fail or both hd and
 /// tl are NULL.
 char	*gnl_join(char *hd, char *tl, char sep)
 {

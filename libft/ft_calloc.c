@@ -39,12 +39,12 @@ void	*ft_calloc(size_t count, size_t size)
 //     char *ptr2 = ft_calloc(0, SIZE_MAX / 2);
 //     // *ptr1 = 'A';
 
-//     printf("Pointer1: %p %lu %x\n", 
+//     printf("Pointer1: %p %lu %x\n",
 // ptr1, sizeof(*ptr1), (unsigned int)*ptr1);
 //     printf("Pointer2: %p %lu %x\n"
 // , ptr2, sizeof(*ptr2), (unsigned int)*ptr2);
 //     // printf("Pointer2: %p\n", ptr2);
 
 //     // This is a simple C program that does nothing
-//     return 0;
+//     return (0);
 // }
