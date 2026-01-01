@@ -16,11 +16,23 @@
 # include <stdlib.h> // For size_t, malloc, free
 # include <unistd.h> // For write
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_join_vars
+{
+	int	i;
+	int	j;
+	int	len_hd;
+	int	len_tl;
+}		t_join_vars;
 
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s);
@@ -83,5 +95,16 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+// get_next_line.c
+void	*reset_return_null(char **pending_content);
+char	*reading_loop_body_of_get_next_line(char **pending, char *hd_stat,
+			int fd);
+char	*get_next_line(int fd);
 
+// get_next_line_utils.c
+char	*gnl_has_newline(char *buf_terminated);
+void	ft_init_t_join_vars(t_join_vars *t, char *hd, char *tl, char sep);
+char	*gnl_join(char *hd, char *tl, char sep);
+void	ft_update_static_array(char *stat, char *s);
+int		ft_strlen_sep(char *s, char sep);
 #endif
