@@ -16,17 +16,7 @@ cmd << LIMITER | cmd1 >> file
 */
 
 
-
-
-
 // allow cmd_path to be NULL if not found. Check for that before execve
-
-
-
-
-
-
-
 
 void get_input_pattern(t_parsed *p, int argc, char **argv)
 {
@@ -48,7 +38,7 @@ void get_input_pattern(t_parsed *p, int argc, char **argv)
 	p->cmd_count = argc - p->cmd_start_idx - 1;
 }
 
-void init_parsed(t_parsed *p)
+static void init_parsed(t_parsed *p)
 {
 	p->in_fd = -1;
 	p->out_fd = -1;
