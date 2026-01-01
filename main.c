@@ -14,9 +14,9 @@ int	main(int argc, char **argv, char **envp)
 	int			exit_code;
 
 	init_parent(&parent);
-	parsed = parse_input(argc, argv, envp);
+	parsed = parse_input(argc, argv, envp, &parent);
 	parent.parsed = parsed;
-	parent.pipes = setup_pipes(parsed->cmd_count);
+	parent.pipes = setup_pipes(parsed->cmd_count, &parent);
 	parent.pids = NULL;
 	launch_pipeline(&parent, envp);
 	close_all_fd_safe(&parent);

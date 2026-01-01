@@ -16,6 +16,8 @@ typedef struct s_cmd
 	char		*path;
 }				t_cmd;
 
+/// @brief (only in pipex proj) malloc-ed:
+/// t_cmd *cmds
 typedef struct s_parsed
 {
 	int			in_fd;
@@ -27,6 +29,10 @@ typedef struct s_parsed
 	char		*limiter;
 }				t_parsed;
 
+/// @brief (only in pipex proj) malloc-ed:
+/// int **pipes
+/// pid_t *pids
+/// t_parsed *parsed
 typedef struct s_parent
 {
 	t_parsed	*parsed;
@@ -37,17 +43,23 @@ typedef struct s_parent
 
 /* parser */
 int				find_path_idx_envp(char **envp);
-void			fetch_cmd_path(char *cmd_name, char **envp, char **path);
-void			parse_cmd(char *cmd_str, t_cmd *cmd, char **envp);
-t_parsed		*parse_input(int argc, char **argv, char **envp);
-void			get_input_pattern(t_parsed *p, int argc, char **argv);
-void			parse_multi_cmds(t_parsed *p, char **argv, char **envp);
-void			open_input(t_parsed *p, char **argv);
-void			open_output(t_parsed *p, int argc, char **argv);
-int				here_doc_pipe(char *limiter);
+void			fetch_cmd_path(char *cmd_name, char **envp, char **path,
+					t_parent *parent);
+void			parse_cmd(char *cmd_str, t_cmd *cmd, char **envp,
+					t_parent *parent);
+t_parsed		*parse_input(int argc, char **argv, char **envp,
+					t_parent *parent);
+void			get_input_pattern(t_parsed *p, int argc, char **argv,
+					t_parent *parent);
+void			parse_multi_cmds(t_parsed *p, char **argv, char **envp,
+					t_parent *parent);
+void			open_input(t_parsed *p, char **argv, t_parent *parent);
+void			open_output(t_parsed *p, int argc, char **argv,
+					t_parent *parent);
+int				here_doc_pipe(char *limiter, t_parent *parent);
 
 /* pipes */
-int				**setup_pipes(int cmd_count);
+int				**setup_pipes(int cmd_count, t_parent *parent);
 
 /* pipeline */
 void			connect_stdin(t_parent *parent, int cmd_idx);
@@ -61,17 +73,18 @@ void			close_all_fd_safe(t_parent *parent);
 int				parent_wait_and_collect(t_parent *parent);
 
 /* error */
-void			fatal_child(t_parent *parent, char *msg, int exit_code);
-void			fatal_parent_prefork(const char *msg_where);
+void			fatal_child_syscall(t_parent *parent, char *msg, int exit_code);
+void			fatal_parent_prefork(t_parent *parent, char *msg);
 void			fatal_parent_postfork(t_parent *parent, const char *msg_where);
+void			command_not_found(t_parent *parent, char *cmd);
 
 /* cleanup */
-void			cleanup_cmds(t_parsed *parsed);
+void			cleanup_cmds_then_tparsed(t_parsed *parsed);
 void			cleanup_pipes(int **pipes, int pipe_count);
 void			cleanup_parent(t_parent *parent);
 void			cleanup_child(t_parent *parent);
 
 /* utils */
-char			*ft_strjoin_3_safe(char *a, char *b, char *c);
+char			*strjoin_3_safe(char *a, char *b, char *c, t_parent *parent);
 
 #endif

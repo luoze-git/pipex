@@ -17,14 +17,14 @@ cmd << LIMITER | cmd1 >> file
 
 // allow cmd_path to be NULL if not found. Check for that before execve
 
-void	get_input_pattern(t_parsed *p, int argc, char **argv)
+void	get_input_pattern(t_parsed *p, int argc, char **argv, t_parent *parent)
 {
 	if (argc < 5)
-		fatal_parent_prefork("invalid arguments");
+		fatal_parent_prefork(parent, "invalid arguments ");
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
 	{
 		if (argc < 6)
-			fatal_parent_prefork("invalid arguments");
+			fatal_parent_prefork(parent, "invalid arguments");
 		p->here_doc = 1;
 		p->limiter = argv[2];
 		p->cmd_start_idx = 3;
@@ -48,17 +48,17 @@ static void	init_parsed(t_parsed *p)
 	p->limiter = NULL;
 }
 
-t_parsed	*parse_input(int argc, char **argv, char **envp)
+t_parsed	*parse_input(int argc, char **argv, char **envp, t_parent *parent)
 {
 	t_parsed	*p;
 
 	p = malloc(sizeof(t_parsed));
 	if (!p)
-		fatal_parent_prefork("malloc parsed");
+		fatal_parent_prefork(parent, "malloc parsed");
 	init_parsed(p);
-	get_input_pattern(p, argc, argv);
-	open_input(p, argv);
-	parse_multi_cmds(p, argv, envp);
-	open_output(p, argc, argv);
+	get_input_pattern(p, argc, argv, parent);
+	open_input(p, argv, parent);
+	parse_multi_cmds(p, argv, envp, parent);
+	open_output(p, argc, argv, parent);
 	return (p);
 }

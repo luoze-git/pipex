@@ -19,8 +19,7 @@ SRCS		= main.c \
 			  pwait.c \
 			  error.c \
 			  close.c \
-			  cleanup.c \
-			  utils.c
+			  cleanup.c
 
 OBJS		= $(SRCS:.c=.o)
 

@@ -1,13 +1,13 @@
 #include "pipex.h"
 
-int	here_doc_pipe(char *limiter)
+int	here_doc_pipe(char *limiter, t_parent *parent)
 {
 	int		fd[2];
 	char	*line;
 	size_t	lim_len;
 
 	if (pipe(fd) < 0)
-		fatal_parent_prefork("pipe");
+		fatal_parent_prefork(parent, "pipe");
 	lim_len = ft_strlen(limiter);
 	while (1)
 	{
@@ -26,17 +26,17 @@ int	here_doc_pipe(char *limiter)
 	return (fd[0]);
 }
 
-void	open_input(t_parsed *p, char **argv)
+void	open_input(t_parsed *p, char **argv, t_parent *parent)
 {
 	if (p->here_doc)
-		p->in_fd = here_doc_pipe(p->limiter);
+		p->in_fd = here_doc_pipe(p->limiter, parent);
 	else
 		p->in_fd = open(argv[p->cmd_start_idx - 1], O_RDONLY);
 	if (p->in_fd < 0)
-		fatal_parent_prefork("open input file");
+		fatal_parent_prefork(parent, "open input file");
 }
 
-void	open_output(t_parsed *p, int argc, char **argv)
+void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)
 {
 	int	flags;
 
@@ -47,5 +47,5 @@ void	open_output(t_parsed *p, int argc, char **argv)
 		flags |= O_TRUNC;
 	p->out_fd = open(argv[argc - 1], flags, 0644);
 	if (p->out_fd < 0)
-		fatal_parent_prefork(argv[argc - 1]);
+		fatal_parent_prefork(parent, argv[argc - 1]);
 }

@@ -1,7 +1,8 @@
 #include "pipex.h"
 
-/*cleanup only malloc memory*/
-void	cleanup_cmds(t_parsed *parsed)
+/// @brief
+/// @param parsed
+void	cleanup_cmds_then_tparsed(t_parsed *parsed)
 {
 	int	i;
 
@@ -39,6 +40,8 @@ void	cleanup_pipes(int **pipes, int pipe_count)
 	free(pipes);
 }
 
+/// @brief cleanup all malloc'd memory in parent struct
+/// @param parent
 void	cleanup_parent(t_parent *parent)
 {
 	int	pipe_count;
@@ -48,7 +51,7 @@ void	cleanup_parent(t_parent *parent)
 	pipe_count = 0;
 	if (parent->parsed)
 		pipe_count = parent->parsed->cmd_count - 1;
-	cleanup_cmds(parent->parsed);
+	cleanup_cmds_then_tparsed(parent->parsed);
 	cleanup_pipes(parent->pipes, pipe_count);
 	if (parent->pids)
 		free(parent->pids);
@@ -63,7 +66,7 @@ void	cleanup_child(t_parent *parent)
 	pipe_count = 0;
 	if (parent->parsed)
 		pipe_count = parent->parsed->cmd_count - 1;
-	cleanup_cmds(parent->parsed);
+	cleanup_cmds_then_tparsed(parent->parsed);
 	cleanup_pipes(parent->pipes, pipe_count);
 	if (parent->pids)
 		free(parent->pids);
