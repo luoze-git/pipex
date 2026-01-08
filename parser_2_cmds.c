@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_2_cmds.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/08 13:46:26 by luozguo           #+#    #+#             */
+/*   Updated: 2026/01/08 13:48:06 by luozguo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 int	find_path_idx_envp(char **envp)
@@ -82,7 +94,7 @@ void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp, t_parent *parent)
 void	parse_multi_cmds(t_parsed *p, char **argv, char **envp,
 		t_parent *parent)
 {
-	int i;
+	int	i;
 
 	p->cmds = malloc(sizeof(t_cmd) * p->cmd_count);
 	if (!p->cmds)
