@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:38 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:39 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:22:26 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ pid_t	launch_command(t_parent *parent, int cmd_idx, char **envp)
 
 	pid_cur = fork();
 	if (pid_cur < 0)
-		fatal_parent_postfork(parent, "fork");
+		fatal_parent_postfork_syscall(parent, "fork");
 	if (pid_cur == 0)
 		child_exec_command(parent, envp, cmd_idx);
 	return (pid_cur);
@@ -73,7 +73,7 @@ void	launch_pipeline(t_parent *parent, char **envp)
 	parent->spawned = 0;
 	parent->pids = malloc(sizeof(pid_t) * parent->parsed->cmd_count);
 	if (!parent->pids)
-		fatal_parent_prefork(parent, "malloc pids");
+		fatal_parent_syscall(parent, "malloc");
 	i = 0;
 	while (i < parent->parsed->cmd_count)
 	{

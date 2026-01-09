@@ -32,11 +32,11 @@ cmd << LIMITER | cmd1 >> file
 void	get_input_pattern(t_parsed *p, int argc, char **argv, t_parent *parent)
 {
 	if (argc < 5)
-		fatal_parent_prefork(parent, "invalid arguments ");
+		fatal_parent_logical_error(parent, "invalid arguments ");
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
 	{
 		if (argc < 6)
-			fatal_parent_prefork(parent, "invalid arguments");
+			fatal_parent_logical_error(parent, "invalid arguments");
 		p->here_doc = 1;
 		p->limiter = argv[2];
 		p->cmd_start_idx = 3;
@@ -66,7 +66,7 @@ void	parse_input(int argc, char **argv, char **envp, t_parent *parent)
 
 	p = malloc(sizeof(t_parsed));
 	if (!p)
-		fatal_parent_prefork(parent, "malloc parsed");
+		fatal_parent_syscall(parent, "malloc");
 	init_parsed(p);
 	parent->parsed = p;
 	get_input_pattern(p, argc, argv, parent);

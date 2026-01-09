@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:35 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:36 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:22:26 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ int				parent_wait_and_collect(t_parent *parent);
 
 /* error */
 void			fatal_child_syscall(t_parent *parent, char *msg, int exit_code);
-void			fatal_parent_prefork(t_parent *parent, char *msg);
-void			fatal_parent_postfork(t_parent *parent, const char *msg_where);
+void			fatal_parent_syscall(t_parent *parent, char *msg);
+void			fatal_parent_logical_error(t_parent *parent, char *msg);
+void			fatal_parent_postfork_syscall(t_parent *parent,
+					const char *msg_where);
 void			command_not_found(t_parent *parent, char *cmd);
 
 /* cleanup */

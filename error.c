@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:15 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:16 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:24:18 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	fatal_child_syscall(t_parent *parent, char *msg, int exit_code)
 	exit(exit_code);
 }
 
-void	fatal_parent_prefork(t_parent *parent, char *msg)
+/// @brief Fatal error from syscall (malloc, pipe, open,
+///	etc.) in parent before fork
+/// @param parent
+/// @param msg
+void	fatal_parent_syscall(t_parent *parent, char *msg)
 {
 	perror(msg);
 	close_all_fd_safe(parent);
@@ -40,10 +44,23 @@ void	fatal_parent_prefork(t_parent *parent, char *msg)
 	exit(1);
 }
 
-/*Children are waited for only to avoid zombies*/
-void	fatal_parent_postfork(t_parent *parent, const char *msg_where)
+/// @brief Fatal logical error (invalid arguments, parsing failures,
+/// etc.) in parent before fork
+/// @param parent
+/// @param msg
+void	fatal_parent_logical_error(t_parent *parent, char *msg)
 {
-	perror(msg_where);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
+	close_all_fd_safe(parent);
+	cleanup_parent(parent);
+	exit(1);
+}
+
+/*Children are waited for only to avoid zombies*/
+void	fatal_parent_postfork_syscall(t_parent *parent, const char *msg)
+{
+	perror(msg);
 	close_all_fd_safe(parent);
 	parent_wait_and_collect(parent);
 	cleanup_parent(parent);

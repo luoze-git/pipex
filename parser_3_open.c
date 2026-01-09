@@ -19,7 +19,7 @@ int	here_doc_pipe(char *limiter, t_parent *parent)
 	size_t	lim_len;
 
 	if (pipe(fd) < 0)
-		fatal_parent_prefork(parent, "pipe");
+		fatal_parent_syscall(parent, "pipe");
 	lim_len = ft_strlen(limiter);
 	while (1)
 	{
@@ -45,7 +45,7 @@ void	open_input(t_parsed *p, char **argv, t_parent *parent)
 	else
 		p->in_fd = open(argv[p->cmd_start_idx - 1], O_RDONLY);
 	if (p->in_fd < 0)
-		fatal_parent_prefork(parent, "open input file");
+		fatal_parent_syscall(parent, "open");
 }
 
 void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)
@@ -59,5 +59,5 @@ void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)
 		flags |= O_TRUNC;
 	p->out_fd = open(argv[argc - 1], flags, 0644);
 	if (p->out_fd < 0)
-		fatal_parent_prefork(parent, argv[argc - 1]);
+		fatal_parent_syscall(parent, argv[argc - 1]);
 }

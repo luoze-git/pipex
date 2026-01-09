@@ -22,14 +22,14 @@ void	setup_pipes(int cmd_count, t_parent *parent)
 
 	pipes = malloc(sizeof(int *) * (cmd_count - 1));
 	if (!pipes)
-		fatal_parent_prefork(parent, "malloc pipes");
+		fatal_parent_syscall(parent, "malloc");
 	parent->pipes = pipes;
 	i = 0;
 	while (i < cmd_count - 1)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (pipe(pipes[i]) == -1)
-			fatal_parent_prefork(parent, "pipe");
+			fatal_parent_syscall(parent, "pipe");
 		i++;
 	}
 }
