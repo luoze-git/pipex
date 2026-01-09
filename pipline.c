@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:38 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 20:22:26 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:43:00 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	connect_stdin(t_parent *parent, int cmd_idx)
 	if (cmd_idx == 0)
 	{
 		if (dup2(parent->parsed->in_fd, STDIN_FILENO) == -1)
-			fatal_child_syscall(parent, "dup2 stdin", 1);
+			fatal_child_syscall(parent, "dup2 stdin");
 	}
 	else
 	{
 		if (dup2(parent->pipes[cmd_idx - 1][0], STDIN_FILENO) == -1)
-			fatal_child_syscall(parent, "dup2 stdin", 1);
+			fatal_child_syscall(parent, "dup2 stdin");
 	}
 }
 
@@ -31,12 +31,12 @@ void	connect_stdout(t_parent *parent, int cmd_idx)
 	if (cmd_idx == parent->parsed->cmd_count - 1)
 	{
 		if (dup2(parent->parsed->out_fd, STDOUT_FILENO) == -1)
-			fatal_child_syscall(parent, "dup2 stdout", 1);
+			fatal_child_syscall(parent, "dup2 stdout");
 	}
 	else
 	{
 		if (dup2(parent->pipes[cmd_idx][1], STDOUT_FILENO) == -1)
-			fatal_child_syscall(parent, "dup2 stdout", 1);
+			fatal_child_syscall(parent, "dup2 stdout");
 	}
 }
 
@@ -51,7 +51,7 @@ void	child_exec_command(t_parent *parent, char **envp, int cmd_idx)
 	if (cmd.path == NULL)
 		command_not_found(parent, cmd.argv[0]);
 	execve(cmd.path, cmd.argv, envp);
-	fatal_child_syscall(parent, "execve", 1);
+	fatal_child_syscall(parent, cmd.argv[0]);
 }
 
 pid_t	launch_command(t_parent *parent, int cmd_idx, char **envp)

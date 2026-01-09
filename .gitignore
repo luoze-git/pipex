@@ -8,7 +8,7 @@ out.txt
 error.txt
 a.out
 *.exe
-
+42_pipex_tester
 # build artifacts
 *.o
 *.a

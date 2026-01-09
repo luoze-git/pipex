@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:15 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 20:24:18 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:40:24 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,19 @@ void	command_not_found(t_parent *parent, char *cmd)
 	exit(127);
 }
 
-void	fatal_child_syscall(t_parent *parent, char *msg, int exit_code)
+void	fatal_child_syscall(t_parent *parent, char *msg)
 {
+	int	errno_save;
+
+	errno_save = errno;
 	perror(msg);
 	close_all_fd_safe(parent);
 	cleanup_child(parent);
-	exit(exit_code);
+	if (errno_save == EACCES)
+		exit(126);
+	if (errno_save == ENOENT)
+		exit(127);
+	exit(1);
 }
 
 /// @brief Fatal error from syscall (malloc, pipe, open,
