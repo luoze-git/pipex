@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:29 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:30 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 22:30:29 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	open_input(t_parsed *p, char **argv, t_parent *parent)
 	else
 		p->in_fd = open(argv[p->cmd_start_idx - 1], O_RDONLY);
 	if (p->in_fd < 0)
-		fatal_parent_syscall(parent, "open");
+	{
+		perror(argv[p->cmd_start_idx - 1]);
+		p->in_fd = open("/dev/null", O_RDONLY);
+	}
 }
 
 void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)

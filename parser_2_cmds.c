@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:26 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 20:17:54 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/09 22:53:26 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	fetch_cmd_path(char *cmd_name, char **envp, char **path,
 
 void	parse_cmd(char *cmd_str, t_cmd *cmd, char **envp, t_parent *parent)
 {
+	if (!cmd_str || cmd_str[0] == '\0')
+		fatal_parent_logical_error(parent, "pipex: empty command");
 	cmd->argv = ft_split(cmd_str, ' ');
 	if (!cmd->argv)
 		fatal_parent_syscall(parent, "split cmd argv");
