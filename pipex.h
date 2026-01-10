@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:35 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 20:40:43 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:08:39 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct s_cmd
 /// t_cmd *cmds
 typedef struct s_parsed
 {
-	int			in_fd;
-	int			out_fd;
+	int			infile_fd;
+	int			outfile_fd;
+	int			outfile_fd_errno;
 	int			cmd_count;
 	int			cmd_start_idx;
 	t_cmd		*cmds;
@@ -52,6 +53,7 @@ typedef struct s_parent
 	int			**pipes;
 	pid_t		*pids;
 	int			spawned;
+	int			redir_failed;
 }				t_parent;
 
 /* parser */
@@ -66,8 +68,8 @@ void			get_input_pattern(t_parsed *p, int argc, char **argv,
 					t_parent *parent);
 void			parse_multi_cmds(t_parsed *p, char **argv, char **envp,
 					t_parent *parent);
-void			open_input(t_parsed *p, char **argv, t_parent *parent);
-void			open_output(t_parsed *p, int argc, char **argv,
+void			open_infile_fd(t_parsed *p, char **argv, t_parent *parent);
+void			open_outfile_fd(t_parsed *p, int argc, char **argv,
 					t_parent *parent);
 int				here_doc_pipe(char *limiter, t_parent *parent);
 

@@ -3,7 +3,7 @@ NAME    := libft.a
 
 # ---- tools & flags
 CC      := cc
-CFLAGS  := -Wall -Wextra -Werror
+CFLAGS  := -Wall -Wextra -Werror -fPIE
 AR      := ar
 ARFLAGS := rcs
 RM      := rm -f

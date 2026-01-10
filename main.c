@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:18 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:19 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:06:24 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	init_parent(t_parent *parent)
 	parent->parsed = NULL;
 	parent->pipes = NULL;
 	parent->pids = NULL;
+	parent->spawned = 0;
+	parent->redir_failed = 0;
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:29 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 22:30:29 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:08:16 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ int	here_doc_pipe(char *limiter, t_parent *parent)
 	return (fd[0]);
 }
 
-void	open_input(t_parsed *p, char **argv, t_parent *parent)
+void	open_infile_fd(t_parsed *p, char **argv, t_parent *parent)
 {
 	if (p->here_doc)
-		p->in_fd = here_doc_pipe(p->limiter, parent);
+		p->infile_fd = here_doc_pipe(p->limiter, parent);
 	else
-		p->in_fd = open(argv[p->cmd_start_idx - 1], O_RDONLY);
-	if (p->in_fd < 0)
+		p->infile_fd = open(argv[p->cmd_start_idx - 1], O_RDONLY);
+	if (p->infile_fd < 0)
 	{
 		perror(argv[p->cmd_start_idx - 1]);
-		p->in_fd = open("/dev/null", O_RDONLY);
+		p->infile_fd = open("/dev/null", O_RDONLY);
 	}
 }
 
-void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)
+void	open_outfile_fd(t_parsed *p, int argc, char **argv, t_parent *parent)
 {
 	int	flags;
 
@@ -60,7 +60,10 @@ void	open_output(t_parsed *p, int argc, char **argv, t_parent *parent)
 		flags |= O_APPEND;
 	else
 		flags |= O_TRUNC;
-	p->out_fd = open(argv[argc - 1], flags, 0644);
-	if (p->out_fd < 0)
-		fatal_parent_syscall(parent, argv[argc - 1]);
+	p->outfile_fd = open(argv[argc - 1], flags, 0644);
+	if (p->outfile_fd < 0)
+	{
+		p->outfile_fd_errno = errno;
+		parent->redir_failed = 1;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:22 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:23 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:08:34 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	get_input_pattern(t_parsed *p, int argc, char **argv, t_parent *parent)
 
 static void	init_parsed(t_parsed *p)
 {
-	p->in_fd = -1;
-	p->out_fd = -1;
+	p->infile_fd = -1;
+	p->outfile_fd = -1;
+	p->outfile_fd_errno = 0;
 	p->cmd_count = 0;
 	p->cmd_start_idx = 0;
 	p->cmds = NULL;
@@ -70,7 +71,7 @@ void	parse_input(int argc, char **argv, char **envp, t_parent *parent)
 	init_parsed(p);
 	parent->parsed = p;
 	get_input_pattern(p, argc, argv, parent);
-	open_input(p, argv, parent);
+	open_infile_fd(p, argv, parent);
 	parse_multi_cmds(p, argv, envp, parent);
-	open_output(p, argc, argv, parent);
+	open_outfile_fd(p, argc, argv, parent);
 }

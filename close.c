@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:13 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:14 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 15:36:52 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ void	close_all_fd_safe(t_parent *parent)
 
 	if (!parent || !parent->parsed)
 		return ;
-	if (parent->parsed->in_fd >= 0)
+	if (parent->parsed->infile_fd >= 0)
 	{
-		close(parent->parsed->in_fd);
-		parent->parsed->in_fd = -1;
+		close(parent->parsed->infile_fd);
+		parent->parsed->infile_fd = -1;
 	}
-	if (parent->parsed->out_fd >= 0)
+	if (parent->parsed->outfile_fd >= 0)
 	{
-		close(parent->parsed->out_fd);
-		parent->parsed->out_fd = -1;
+		close(parent->parsed->outfile_fd);
+		parent->parsed->outfile_fd = -1;
 	}
 	if (!parent->pipes)
 		return ;

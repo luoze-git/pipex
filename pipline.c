@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:38 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 20:43:00 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:06:04 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	connect_stdin(t_parent *parent, int cmd_idx)
 {
 	if (cmd_idx == 0)
 	{
-		if (dup2(parent->parsed->in_fd, STDIN_FILENO) == -1)
+		if (dup2(parent->parsed->infile_fd, STDIN_FILENO) == -1)
 			fatal_child_syscall(parent, "dup2 stdin");
 	}
 	else
@@ -30,7 +30,12 @@ void	connect_stdout(t_parent *parent, int cmd_idx)
 {
 	if (cmd_idx == parent->parsed->cmd_count - 1)
 	{
-		if (dup2(parent->parsed->out_fd, STDOUT_FILENO) == -1)
+		if (parent->parsed->outfile_fd == -1)
+		{
+			errno = parent->parsed->outfile_fd_errno;
+			fatal_child_syscall(parent, parent->parsed->cmds[cmd_idx].argv[0]);
+		}
+		if (dup2(parent->parsed->outfile_fd, STDOUT_FILENO) == -1)
 			fatal_child_syscall(parent, "dup2 stdout");
 	}
 	else
@@ -70,7 +75,6 @@ void	launch_pipeline(t_parent *parent, char **envp)
 {
 	int	i;
 
-	parent->spawned = 0;
 	parent->pids = malloc(sizeof(pid_t) * parent->parsed->cmd_count);
 	if (!parent->pids)
 		fatal_parent_syscall(parent, "malloc");

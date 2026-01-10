@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:41 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/08 13:46:42 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:09:40 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int	parent_wait_and_collect(t_parent *parent)
 			last_exit_code = wait_status_to_exit_code(status);
 		i++;
 	}
+	if (parent->redir_failed)
+		return (1);
 	return (last_exit_code);
 }
