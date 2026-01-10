@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:22 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/10 16:08:34 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:33:09 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	get_input_pattern(t_parsed *p, int argc, char **argv, t_parent *parent)
 	p->cmd_count = argc - p->cmd_start_idx - 1;
 }
 
+/// @brief start from meaningful defaults
+/// @param p 
 static void	init_parsed(t_parsed *p)
 {
 	p->infile_fd = -1;
@@ -65,7 +67,7 @@ void	parse_input(int argc, char **argv, char **envp, t_parent *parent)
 {
 	t_parsed	*p;
 
-	p = malloc(sizeof(t_parsed));
+	p = ft_calloc(1, sizeof(t_parsed));
 	if (!p)
 		fatal_parent_syscall(parent, "malloc");
 	init_parsed(p);

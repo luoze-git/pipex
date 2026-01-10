@@ -6,27 +6,18 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:18 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/10 16:06:24 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:34:27 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static void	init_parent(t_parent *parent)
-{
-	parent->parsed = NULL;
-	parent->pipes = NULL;
-	parent->pids = NULL;
-	parent->spawned = 0;
-	parent->redir_failed = 0;
-}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_parent	parent;
 	int			exit_code;
 
-	init_parent(&parent);
+	ft_bzero(&parent, sizeof(t_parent));
 	parse_input(argc, argv, envp, &parent);
 	setup_pipes(parent.parsed->cmd_count, &parent);
 	launch_pipeline(&parent, envp);

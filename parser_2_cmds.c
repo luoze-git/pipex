@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:26 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/09 22:53:26 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:37:23 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	parse_multi_cmds(t_parsed *p, char **argv, char **envp,
 {
 	int	i;
 
-	p->cmds = malloc(sizeof(t_cmd) * p->cmd_count);
+	p->cmds = ft_calloc(p->cmd_count, sizeof(t_cmd));
 	if (!p->cmds)
 		fatal_parent_syscall(parent, "malloc");
 	i = 0;

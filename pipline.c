@@ -6,7 +6,7 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:46:38 by luozguo           #+#    #+#             */
-/*   Updated: 2026/01/10 16:06:04 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:43:41 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	launch_pipeline(t_parent *parent, char **envp)
 {
 	int	i;
 
-	parent->pids = malloc(sizeof(pid_t) * parent->parsed->cmd_count);
+	parent->pids = ft_calloc(parent->parsed->cmd_count, sizeof(pid_t));
 	if (!parent->pids)
 		fatal_parent_syscall(parent, "malloc");
 	i = 0;
